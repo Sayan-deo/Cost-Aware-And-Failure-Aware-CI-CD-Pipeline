@@ -28,5 +28,5 @@ services:
       dockerfile: database.Dockerfile
       context: database/
     environment:
-      POSTGRES_USER: sayan_deo
-      POSTGRES_PASSWORD: Sayan@2009
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
