@@ -66,13 +66,15 @@ jobs:
         run: |
           ECR=${{ secrets.ECR_URI }}
 
-          docker tag frontend_app:latest $ECR/frontend_app:latest
-          docker tag backend_app:latest $ECR/backend_app:latest
-          docker tag backend_database:latest $ECR/backend_database:latest
+          ECR=${{ secrets.ECR_URI }}
 
-          docker push $ECR/frontend_app:latest
-          docker push $ECR/backend_app:latest
-          docker push $ECR/backend_database:latest
+          docker tag frontend_app:latest $ECR:frontend_app
+          docker tag backend_app:latest $ECR:backend_app
+          docker tag backend_database:latest $ECR:database
+
+          docker push $ECR:frontend_app
+          docker push $ECR:backend_app
+          docker push $ECR:database
 
       # 5️ Conditional Deployment
       - name: Run Docker Compose
