@@ -89,6 +89,30 @@ jobs:
         if: always()
         run: docker compose down
 
+
+      # Deploy on EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            AWS_REGION=${{ secrets.AWS_REGION }}
+            ECR=${{ secrets.ECR_URI }}
+
+            echo "Logging into ECR..."
+            aws ecr get-login-password --region $AWS_REGION \
+            | docker login --username AWS --password-stdin $ECR
+            
+            echo "Pulling latest images..."
+            docker compose -f docker-compose.prod.yml pull
+
+            echo "Stopping old containers..."
+            docker compose -f docker-compose.prod.yml down
+
+            echo "Starting new containers..."
+            docker compose -f docker-compose.prod.yml up -d
       # 7️ Commit Updated History Back to Repo
       - name: Commit Updated Metrics
         if: always()
