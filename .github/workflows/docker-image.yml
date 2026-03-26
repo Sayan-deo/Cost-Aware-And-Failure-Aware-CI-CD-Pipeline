@@ -24,6 +24,9 @@ jobs:
 
       # 3️ Measure Build Time
       - name: Build Docker Compose
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
           START_TIME=$(date +%s)
           docker compose build
