@@ -40,5 +40,11 @@
     "build_time": 48,
     "risk_score": 0.07547169811320754,
     "decision": "true"
+  },
+  {
+    "timestamp": "2026-03-26 08:23:47.355845",
+    "build_time": 54,
+    "risk_score": 0.04904632152588552,
+    "decision": "true"
   }
 ]
