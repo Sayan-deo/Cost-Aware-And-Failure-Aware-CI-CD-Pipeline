@@ -122,4 +122,5 @@ jobs:
 
           git add metrics/history.json
           git commit -m "Update metrics history [skip ci]" || echo "No changes to commit"
-          git push
+          git pull --rebase origin main
+          git push origin main
